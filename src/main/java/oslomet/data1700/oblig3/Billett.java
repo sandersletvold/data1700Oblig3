@@ -1,6 +1,15 @@
 package oslomet.data1700.oblig3;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "billett")
 public class Billett {
+    @Id
+    @GeneratedValue
     private String film;
     private String antall;
     private String fornavn;
@@ -15,6 +24,10 @@ public class Billett {
         this.etternavn = etternavn;
         this.telefonnr = telefonnr;
         this.epost = epost;
+    }
+
+    public Billett() {
+
     }
 
     public String getFilm() {
