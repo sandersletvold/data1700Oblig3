@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinobilletter</title>
+    <script src="script.js" type="application/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Bestilling av kinobilletter</h1>
+            <form class="form">
+                <div class="form-group">
+                    <label for="velgfilm">Velg film</label>
+                    <select id="velgfilm" class="form-control">
+                        <option id="default"></option>
+                        <option>Konvoi</option>
+                        <option>Snøsamfunnet</option>
+                        <option>The Wolf of Wall Street</option>
+                        <option>Bird Box</option>
+                        <option>Tinder svindleren</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="antall">Antall</label>
+                    <input id="antall" type="number" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="fornavn">Fornavn</label>
+                    <input id="fornavn" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="etternavn">Etternavn</label>
+                    <input id="etternavn" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="telefonnr">Telefonnr</label>
+                    <input id="telefonnr" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="epost">Epost</label>
+                    <input id="epost" type="text" class="form-control">
+                </div>
+            </form>
+            <button class="btn btn-primary" onclick="kjop()">Kjøp billett</button>
+        </div>
+        <div class="col-md-8">
+            <h2>Alle billetter</h2>
+            <div id="billettfelt"></div>
+            <button class="btn btn-danger" onclick="slett()">Slett alle billettene</button>
+            <div id="feilmldfelt"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
