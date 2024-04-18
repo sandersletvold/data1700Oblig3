@@ -18,7 +18,7 @@ public class BillettRepository {
     }
 
     public List<Billett> hentBilletter() {
-        String sql = "SELECT * FROM billett;";
+        String sql = "SELECT * FROM billett ORDER BY etternavn ASC;";
         List<Billett> alleBilletter = db.query(sql, new BeanPropertyRowMapper(Billett.class));
         return alleBilletter;
     }
@@ -26,5 +26,17 @@ public class BillettRepository {
     public void slettBilletter() {
         String sql = "DELETE FROM billett;";
         db.update(sql);
+    }
+
+    public int slettEnBillett(int id) {
+        String sql = "DELETE FROM billett WHERE id = ?;";
+        return db.update(sql, new Object[]{
+                id
+        });
+    }
+
+    public void endreBillett(Billett billett) {
+        String sql = "UPDATE billett SET film=?, SET antall=?, SET fornavn=?, SET etternavn=?, SET telefonnr=?, SET epost=? WHERE id=?;";
+        db.update(sql, billett.getFilm(), billett.getAntall(), billett.getFornavn(), billett.getEtternavn(), billett.getTelefonnr(), billett.getEpost());
     }
 }

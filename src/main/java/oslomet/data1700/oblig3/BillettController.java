@@ -1,9 +1,7 @@
 package oslomet.data1700.oblig3;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +23,20 @@ public class BillettController {
     @GetMapping("/slettLagring")
     public void slettLagring() {
         repository.slettBilletter();
+    }
+
+    @DeleteMapping("/slettEnBillett")
+    public void slettEnBillett(@RequestParam int id) {
+        repository.slettEnBillett(id);
+    }
+
+    @PostMapping("/tilDatabase")
+    public void tilDatabase(Billett billett) {
+        repository.lagreBillett(billett);
+    }
+
+    @PostMapping("/oppdaterStudent")
+    public void endreEnBillett(Billett billett) {
+        repository.endreBillett(billett);
     }
 }

@@ -81,9 +81,17 @@ function hent() {
 function utskrift(ordre) {
     let ut = "<table class='table'><tr><th class='active'>Film</th><th class='active'>Antall</th><th class='active'>Fornavn</th><th class='active'>Etternavn</th><th class='active'>Telefonnr</th><th class='active'>Epost</th></tr>";
     for (let i of ordre) {
-        ut += "<tr><td>" +i.film+ "</td><td>" +i.antall+ "</td><td>" +i.fornavn+ "</td><td>" + i.etternavn+ "</td><td>" +i.telefonnr+ "</td><td>" +i.epost+ "</td></tr>";
+        ut += "<tr><td>" +i.film+ "</td><td>" +i.antall+ "</td><td>" +i.fornavn+ "</td><td>" + i.etternavn+ "</td><td>" +i.telefonnr+ "</td><td>" +i.epost+ "</td><td><button class='btn btn-primary' onclick='endreEnBillett("+i.id+")'>Endre</button></td><td><button class='btn btn-danger' onclick='slettEnBillet("+i.id+")'>Slett</button></td></tr>";
     }
     ut += "</table>";
     $("#billettfelt").html(ut);
     $("#feilmldfelt").html("");
+}
+
+function endreEnBillett(id) {
+
+}
+
+function slettEnBillet(id) {
+
 }
