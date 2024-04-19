@@ -8,13 +8,15 @@ function kjop() {
     let epost = $("#epost").val();
 
     /* Deklarerer et array og definer verdiene til et objekt */
+    let billettNr;
     let ordre = {
         film : film,
         antall : antall,
         fornavn : fornavn,
         etternavn : etternavn,
         telefonnr : telefonnr,
-        epost : epost
+        epost : epost,
+        billettNr : billettNr
     };
 
     /* Regler for validering */
@@ -60,6 +62,7 @@ function kjop() {
         $("#etternavn").val("");
         $("#telefonnr").val("");
         $("#epost").val("");
+
         /* Hvis ikke feilmld er en tom string, betyr dette at det er en feil i en eller flere av input feltene */
     } else {
         $("#feilmldfelt").html("<h2>Feil vedrørende din ordre ved</h2><strong>" + feilmld);
@@ -79,19 +82,22 @@ function hent() {
 }
 
 function utskrift(ordre) {
-    let ut = "<table class='table'><tr><th class='active'>Film</th><th class='active'>Antall</th><th class='active'>Fornavn</th><th class='active'>Etternavn</th><th class='active'>Telefonnr</th><th class='active'>Epost</th></tr>";
+    let ut = "<table class='table'><tr><th class='active'>Film</th><th class='active'>Antall</th><th class='active'>Fornavn</th><th class='active'>Etternavn</th><th class='active'>Telefonnr</th><th class='active'>Epost</th><th class='active'>Endre</th><th class='active'>Slett</th></tr>";
     for (let i of ordre) {
-        ut += "<tr><td>" +i.film+ "</td><td>" +i.antall+ "</td><td>" +i.fornavn+ "</td><td>" + i.etternavn+ "</td><td>" +i.telefonnr+ "</td><td>" +i.epost+ "</td><td><button class='btn btn-primary' onclick='endreEnBillett("+i.id+")'>Endre</button></td><td><button class='btn btn-danger' onclick='slettEnBillet("+i.id+")'>Slett</button></td></tr>";
+        ut += "<tr><td>" +i.film+ "</td><td>" +i.antall+ "</td><td>" +i.fornavn+ "</td><td>" + i.etternavn+ "</td><td>" +i.telefonnr+ "</td><td>" +i.epost+ "</td><td><button class='btn btn-primary' onclick='endreEnBillett("+i.billettNr+")'>Endre</button></td><td><button class='btn btn-danger' onclick='slettEnBillet("+i.billettNr+")'>Slett</button></td></tr>";
     }
     ut += "</table>";
     $("#billettfelt").html(ut);
     $("#feilmldfelt").html("");
 }
 
-function endreEnBillett(id) {
+function endreEnBillett(billettNr) {
 
 }
 
-function slettEnBillet(id) {
-
+function slettEnBillet(billettNr) {
+    $.ajax({
+        url: 'slettEnBillett?billettNr='+billettNr,
+        type: 'DELETE'
+    });
 }

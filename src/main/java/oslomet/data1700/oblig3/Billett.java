@@ -16,6 +16,7 @@ public class Billett {
     private String etternavn;
     private String telefonnr;
     private String epost;
+    private long billetNr;
 
     public Billett(String film, String antall, String fornavn, String etternavn, String telefonnr, String epost) {
         this.film = film;
@@ -28,6 +29,16 @@ public class Billett {
 
     public Billett() {
 
+    }
+
+    public Billett(String film, String antall, String fornavn, String etternavn, String telefonnr, String epost, long billetNr) {
+        this.film = film;
+        this.antall = antall;
+        this.fornavn = fornavn;
+        this.etternavn = etternavn;
+        this.telefonnr = telefonnr;
+        this.epost = epost;
+        this.billetNr = billetNr;
     }
 
     public String getFilm() {
@@ -76,5 +87,13 @@ public class Billett {
 
     public void setEpost(String epost) {
         this.epost = epost;
+    }
+
+    public long getBilletNr() {
+        return billetNr;
+    }
+
+    public void setBilletNr(long billetNr) {
+        this.billetNr = billetNr;
     }
 }

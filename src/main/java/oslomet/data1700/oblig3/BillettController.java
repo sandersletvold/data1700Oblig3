@@ -26,17 +26,7 @@ public class BillettController {
     }
 
     @DeleteMapping("/slettEnBillett")
-    public void slettEnBillett(@RequestParam int id) {
-        repository.slettEnBillett(id);
-    }
-
-    @PostMapping("/tilDatabase")
-    public void tilDatabase(Billett billett) {
-        repository.lagreBillett(billett);
-    }
-
-    @PostMapping("/oppdaterStudent")
-    public void endreEnBillett(Billett billett) {
-        repository.endreBillett(billett);
+    public void slettEnBillett(@RequestParam long billettNr) {
+        repository.slettEnBillett(billettNr);
     }
 }

@@ -28,15 +28,10 @@ public class BillettRepository {
         db.update(sql);
     }
 
-    public int slettEnBillett(int id) {
-        String sql = "DELETE FROM billett WHERE id = ?;";
+    public int slettEnBillett(long billettNr) {
+        String sql = "DELETE FROM billett WHERE billettNr = ?";
         return db.update(sql, new Object[]{
-                id
+                billettNr
         });
-    }
-
-    public void endreBillett(Billett billett) {
-        String sql = "UPDATE billett SET film=?, SET antall=?, SET fornavn=?, SET etternavn=?, SET telefonnr=?, SET epost=? WHERE id=?;";
-        db.update(sql, billett.getFilm(), billett.getAntall(), billett.getFornavn(), billett.getEtternavn(), billett.getTelefonnr(), billett.getEpost());
     }
 }
