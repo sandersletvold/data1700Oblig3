@@ -93,13 +93,7 @@ public class Billett {
         return billetNr;
     }
 
-    public void setBilletNr(long billetNr) {
+    public void setBillettNr(long billetNr) {
         this.billetNr = billetNr;
-    }
-
-    public void setBillettNr(long billettNr) {
-    }
-
-    public void setTelefon(String telefon) {
     }
 }

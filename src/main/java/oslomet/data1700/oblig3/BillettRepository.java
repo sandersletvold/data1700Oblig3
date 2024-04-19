@@ -24,7 +24,7 @@ public class BillettRepository {
             billett.setAntall(rs.getString("antall"));
             billett.setFornavn(rs.getString("fornavn"));
             billett.setEtternavn(rs.getString("etternavn"));
-            billett.setTelefon(rs.getString("telefon"));
+            billett.setTelefonnr(rs.getString("telefon"));
             billett.setEpost(rs.getString("epost"));
             return billett;
         }

@@ -55,6 +55,46 @@
             <div id="feilmldfelt"></div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-3">
+            <h2>Endre kinobilletter</h2>
+            <form class="form">
+                <p id="billettNr"></p>
+                <div class="form-group">
+                    <label for="endreVelgfilm">Velg film</label>
+                    <select id="endreVelgfilm" class="form-control">
+                        <option id="endreDefault"></option>
+                        <option>Konvoi</option>
+                        <option>Snøsamfunnet</option>
+                        <option>The Wolf of Wall Street</option>
+                        <option>Bird Box</option>
+                        <option>Tinder svindleren</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="endreAntall">Antall</label>
+                    <input id="endreAntall" type="number" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="endreFornavn">Fornavn</label>
+                    <input id="endreFornavn" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="endreEtternavn">Etternavn</label>
+                    <input id="endreEtternavn" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="endreTelefonnr">Telefonnr</label>
+                    <input id="endreTelefonnr" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="endreEpost">Epost</label>
+                    <input id="endreEpost" type="text" class="form-control">
+                </div>
+            </form>
+            <button class="btn btn-primary" onclick="oppdaterBillett()">Oppdater</button>
+        </div>
+    </div>
 </div>
 </body>
 </html>
