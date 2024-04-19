@@ -29,4 +29,9 @@ public class BillettController {
     public void slettEnBillett(@RequestParam long billettNr) {
         repository.slettEnBillett(billettNr);
     }
+
+    @GetMapping("/hentBilletterFraDB")
+    public Billett hentBilletterFraDB(@RequestParam long billettNr){
+        return repository.findById(billettNr);
+    }
 }

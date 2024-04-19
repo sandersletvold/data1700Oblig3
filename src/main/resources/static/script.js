@@ -1,22 +1,21 @@
 function kjop() {
     /* Henter inputene fra HTML siden */
-    let film = $("#velgfilm").val();
-    let antall = $("#antall").val();
-    let fornavn = $("#fornavn").val();
-    let etternavn = $("#etternavn").val();
-    let telefonnr = $("#telefonnr").val();
-    let epost = $("#epost").val();
+    const film = $("#velgfilm").val();
+    const antall = $("#antall").val();
+    const fornavn = $("#fornavn").val();
+    const etternavn = $("#etternavn").val();
+    const telefonnr = $("#telefonnr").val();
+    const epost = $("#epost").val();
 
     /* Deklarerer et array og definer verdiene til et objekt */
     let billettNr;
-    let ordre = {
+    const ordre = {
         film : film,
         antall : antall,
         fornavn : fornavn,
         etternavn : etternavn,
         telefonnr : telefonnr,
         epost : epost,
-        billettNr : billettNr
     };
 
     /* Regler for validering */
@@ -97,7 +96,7 @@ function endreEnBillett(billettNr) {
 
 function slettEnBillet(billettNr) {
     $.ajax({
-        url: 'slettEnBillett?billettNr='+billettNr,
-        type: 'DELETE'
+        url: "slettEnBillett?billettNr="+billettNr,
+        type: "DELETE"
     });
 }
