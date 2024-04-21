@@ -8,7 +8,6 @@ function kjop() {
     const epost = $("#epost").val();
 
     /* Deklarerer et array og definer verdiene til et objekt */
-    let billettNr;
     const ordre = {
         film : film,
         antall : antall,
@@ -83,7 +82,7 @@ function hent() {
 function utskrift(ordre) {
     let ut = "<table class='table'><tr><th class='active'>Film</th><th class='active'>Antall</th><th class='active'>Fornavn</th><th class='active'>Etternavn</th><th class='active'>Telefonnr</th><th class='active'>Epost</th><th class='active'>Endre</th><th class='active'>Slett</th></tr>";
     for (let i of ordre) {
-        ut += "<tr><td>" +i.film+ "</td><td>" +i.antall+ "</td><td>" +i.fornavn+ "</td><td>" + i.etternavn+ "</td><td>" +i.telefonnr+ "</td><td>" +i.epost+ "</td><td><button class='btn btn-primary' onclick='oppdaterBillett(" +i.billettNr+ ")'>Endre</button></td><td><button class='btn btn-danger' onclick='slettEnBillet(" +i.billettNr+ ")'>Slett</button></td></tr>";
+        ut += "<tr><td>" +i.film+ "</td><td>" +i.antall+ "</td><td>" +i.fornavn+ "</td><td>" + i.etternavn+ "</td><td>" +i.telefonnr+ "</td><td>" +i.epost+ "</td><td><button class='btn btn-primary' onclick='oppdaterBillett(" + i.billettNr + ")'>Endre</button></td><td><button class='btn btn-danger' onclick='slettEnBillett(" +i.billettNr+ ")'>Slett</button></td></tr>";
     }
     ut += "</table>";
     $("#billettfelt").html(ut);
@@ -91,20 +90,37 @@ function utskrift(ordre) {
 }
 
 function oppdaterBillett(billettNr) {
-    $.get("hentBilletterFraDB?billettNr=" + billettNr, function (data) {
+    $.get("http://localhost:8080/hentBilletterFraDB?billettNr=" + billettNr, function (data) {
         $("#billettNr").html(billettNr);
         $("#endreVelgfilm").val(data.film);
-        $("#endreAntall").val(data.film);
-        $("#endreFornavn").val(data.film);
-        $("#endreEtternavn").val(data.film);
-        $("#endreTelefonnr").val(data.film);
-        $("#endreEpost").val(data.film);
+        $("#endreAntall").val(data.antall);
+        $("#endreFornavn").val(data.fornavn);
+        $("#endreEtternavn").val(data.etternavn);
+        $("#endreTelefonnr").val(data.telefonnr);
+        $("#endreEpost").val(data.epost);
     });
+    $("#endreInputs").css("display", "block");
 }
 
-function slettEnBillet(billettNr) {
+function slettEnBillett(billettNr) {
     $.ajax({
         url: "slettEnBillett?billettNr="+billettNr,
         type: "DELETE"
+    });
+    hent();
+}
+
+function oppdaterBillettiDB() {
+    const billett = {
+        billettNr : $("#billettNr").html(),
+        film : $("#endreVelgfilm").val(),
+        antall : $("#endreAntall").val(),
+        fornavn : $("#endreFornavn").val(),
+        etternavn : $("#endreEtternavn").val(),
+        telefonnr : $("#endreTelefonnr").val(),
+        epost : $("#endreEpost").val()
+    }
+    $.post("http://localhost:8080/oppdaterBillettiDB", billett, function (data){
+
     });
 }

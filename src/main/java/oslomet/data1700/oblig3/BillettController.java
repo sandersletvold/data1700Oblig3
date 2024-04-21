@@ -26,12 +26,17 @@ public class BillettController {
     }
 
     @DeleteMapping("/slettEnBillett")
-    public void slettEnBillett(@RequestParam long billettNr) {
+    public void slettEnBillett(@RequestParam Long billettNr) {
         repository.slettEnBillett(billettNr);
     }
 
     @GetMapping("/hentBilletterFraDB")
-    public Billett hentBilletterFraDB(@RequestParam long billettNr){
+    public Billett hentBilletterFraDB(@RequestParam Long billettNr){
         return repository.findById(billettNr);
+    }
+
+    @PostMapping("/oppdaterBillettiDB")
+    public void oppdaterBillettiDB(Billett billett){
+        repository.oppdaterBillettiDB(billett);
     }
 }

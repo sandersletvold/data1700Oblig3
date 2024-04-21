@@ -16,16 +16,16 @@ public class Billett {
     private String etternavn;
     private String telefonnr;
     private String epost;
-    private long billetNr;
+    private Long billettNr;
 
-    public Billett(String film, String antall, String fornavn, String etternavn, String telefonnr, String epost, long billetNr) {
+    public Billett(String film, String antall, String fornavn, String etternavn, String telefonnr, String epost, Long billettNr) {
         this.film = film;
         this.antall = antall;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
         this.telefonnr = telefonnr;
         this.epost = epost;
-        this.billetNr = billetNr;
+        this.billettNr = billettNr;
     }
 
     public Billett() {
@@ -89,11 +89,11 @@ public class Billett {
         this.epost = epost;
     }
 
-    public long getBilletNr() {
-        return billetNr;
+    public Long getBillettNr() {
+        return billettNr;
     }
 
-    public void setBillettNr(long billetNr) {
-        this.billetNr = billetNr;
+    public void setBillettNr(Long billettNr) {
+        this.billettNr = billettNr;
     }
 }

@@ -46,14 +46,19 @@ public class BillettRepository {
         db.update(sql);
     }
 
-    public int slettEnBillett(long billettNr) {
+    public int slettEnBillett(Long billettNr) {
         String sql = "DELETE FROM billett WHERE billettNr = ?";
         return db.update(sql, new Object[]{
                 billettNr
         });
     }
 
-    public Billett findById(long billettNr) {
+    public Billett findById(Long billettNr) {
         return db.queryForObject("SELECT * FROM billett WHERE billettNr = ?", new BillettRowMapper(), billettNr);
+    }
+
+    public int oppdaterBillettiDB(Billett billett) {
+        String sql = "UPDATE billett SET film = ?, antall =?, fornavn =?, etternavn =?, telefonnr =?, epost =? WHERE billettNr= ?";
+        return db.update(sql, billett.getFilm(), billett.getAntall(), billett.getFornavn(), billett.getEtternavn(), billett.getTelefonnr(), billett.getEpost(), billett.getBillettNr());
     }
 }
