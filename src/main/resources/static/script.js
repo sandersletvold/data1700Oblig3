@@ -119,7 +119,7 @@ function oppdaterBillettiDB() {
         "antall": document.getElementById("endreAntall").value,
         "fornavn": document.getElementById("endreFornavn").value,
         "etternavn": document.getElementById("endreEtternavn").value,
-        "telefon": document.getElementById("endreTelefonnr").value,
+        "telefonnr": document.getElementById("endreTelefonnr").value,
         "epost": document.getElementById("endreEpost").value
     }
     $.post("http://localhost:8080/oppdaterBillettiDB", billett, function (){
