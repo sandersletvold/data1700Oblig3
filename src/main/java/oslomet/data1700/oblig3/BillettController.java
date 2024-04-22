@@ -11,18 +11,18 @@ public class BillettController {
     private BillettRepository repository;
 
     @PostMapping("/tilServer")
-    public void lagreBillett(Billett billett) {
-        repository.lagreBillett(billett);
+    public void tilServer(Billett billett) {
+        repository.tilServer(billett);
     }
 
     @GetMapping("/tilKlient")
-    public List<Billett> sendLagring() {
-        return repository.hentBilletter();
+    public List<Billett> tilKlient() {
+        return repository.tilKlient();
     }
 
     @GetMapping("/slettLagring")
     public void slettLagring() {
-        repository.slettBilletter();
+        repository.slettLagring();
     }
 
     @DeleteMapping("/slettEnBillett")
@@ -30,13 +30,13 @@ public class BillettController {
         repository.slettEnBillett(billettNr);
     }
 
-    @GetMapping("/hentBilletterFraDB")
-    public Billett hentBilletterFraDB(@RequestParam Long billettNr){
-        return repository.findById(billettNr);
+    @GetMapping("/hentEnBillett")
+    public Billett hentEnBillett(@RequestParam Long billettNr){
+        return repository.hentEnBillett(billettNr);
     }
 
-    @PostMapping("/oppdaterBillettiDB")
-    public void oppdaterBillettiDB(Billett billett){
-        repository.oppdaterBillettiDB(billett);
+    @PostMapping("/endreBillett")
+    public void endreEnBillett(Billett billett){
+        repository.endreEnBillett(billett);
     }
 }

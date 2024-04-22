@@ -11,7 +11,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" id="inputs">
             <h1>Bestilling av kinobilletter</h1>
             <form class="form">
                 <div class="form-group">
@@ -48,18 +48,10 @@
             </form>
             <button class="btn btn-primary" onclick="kjop()">Kjøp billett</button>
         </div>
-        <div class="col-md-9">
-            <h2>Alle billetter</h2>
-            <div id="billettfelt"></div>
-            <button class="btn btn-danger" onclick="slett()">Slett alle billettene</button>
-            <div id="feilmldfelt"></div>
-        </div>
-    </div>
-    <div class="row" id="endreInputs" style="display: none">
-        <div class="col-md-3">
-            <h2>Endre kinobilletter</h2>
+        <div class="col-md-3" id="endreInputs" style="display: none">
+            <h1>Endre kinobilletter</h1>
             <form class="form">
-                <p id="billettNr"></p>
+                <p id="billettNr" style="display: none"></p>
                 <div class="form-group">
                     <label for="endreVelgfilm">Velg film</label>
                     <select id="endreVelgfilm" class="form-control">
@@ -93,6 +85,12 @@
                 </div>
             </form>
             <button class="btn btn-primary" onclick="oppdaterBillettiDB()">Oppdater</button>
+        </div>
+        <div class="col-md-9">
+            <div id="feilmldfelt"></div>
+            <h2>Alle billetter</h2>
+            <div id="billettfelt"></div>
+            <button class="btn btn-danger" onclick="slett()">Slett alle billettene</button>
         </div>
     </div>
 </div>

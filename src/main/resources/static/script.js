@@ -1,49 +1,40 @@
-function kjop() {
-    /* Henter inputene fra HTML siden */
-    const film = $("#velgfilm").val();
-    const antall = $("#antall").val();
-    const fornavn = $("#fornavn").val();
-    const etternavn = $("#etternavn").val();
-    const telefonnr = $("#telefonnr").val();
-    const epost = $("#epost").val();
+/* Regler for validering */
+const navnRegex = /^[A-Za-z]+$/;
+const telefonnrRegex = /^[0-9]+$/;
+const epostRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+/*  "epostRegex" er hentet fra:
+    https://emaillistvalidation.com/blog/email-validation-in-javascript-using-regular-expressions-the-ultimate-guide/
+*/
 
+function kjop() {
     /* Deklarerer et array og definer verdiene til et objekt */
     const ordre = {
-        film : film,
-        antall : antall,
-        fornavn : fornavn,
-        etternavn : etternavn,
-        telefonnr : telefonnr,
-        epost : epost
+        film : $("#velgfilm").val(),
+        antall : $("#antall").val(),
+        fornavn : $("#fornavn").val(),
+        etternavn : $("#etternavn").val(),
+        telefonnr : $("#telefonnr").val(),
+        epost : $("#epost").val()
     };
-
-    /* Regler for validering */
-    const navnRegex = /^[A-Åa-å]+$/;
-    const telefonnrRegex = /^[0-9]+$/;
-    const epostRegex = /^[a-åA-Å0-9._-]+@[a-åA-Å0-9.-]+\.[a-åA-Å]{2,4}$/;
-    /*  "epostRegex" er hentet fra:
-        https://emaillistvalidation.com/blog/email-validation-in-javascript-using-regular-expressions-the-ultimate-guide/
-        Z er endret til Å for å tilpasse norsk
-    */
 
     /* Valideringen av alle feltene */
     let feilmld = "";
-    if (film === "") {
+    if (ordre.film === "") {
         feilmld += "Velg film<br>";
     }
-    if (antall <= 0) {
+    if (ordre.antall <= 0) {
         feilmld += "Antall<br>";
     }
-    if (!navnRegex.test(fornavn)) {
+    if (!navnRegex.test(ordre.fornavn)) {
         feilmld += "Fornavn<br>";
     }
-    if (!navnRegex.test(etternavn)) {
+    if (!navnRegex.test(ordre.etternavn)) {
         feilmld += "Etternavn<br>";
     }
-    if (!telefonnrRegex.test(telefonnr)) {
+    if (!telefonnrRegex.test(ordre.telefonnr)) {
         feilmld += "Telefonnr<br>";
     }
-    if (!epostRegex.test(epost)) {
+    if (!epostRegex.test(ordre.epost)) {
         feilmld += "Epost<br>";
     }
 
@@ -82,7 +73,6 @@ function hent() {
 function utskrift(ordre) {
     let ut = "<table class='table'><tr><th class='active'>Film</th><th class='active'>Antall</th><th class='active'>Fornavn</th><th class='active'>Etternavn</th><th class='active'>Telefonnr</th><th class='active'>Epost</th><th class='active'>Endre</th><th class='active'>Slett</th></tr>";
     for (let i of ordre) {
-        // Her er billettNr null
         ut += "<tr><td>" +i.film+ "</td><td>" +i.antall+ "</td><td>" +i.fornavn+ "</td><td>" + i.etternavn+ "</td><td>" +i.telefonnr+ "</td><td>" +i.epost+ "</td><td><button class='btn btn-primary' onclick='oppdaterBillett(" +i.billettNr+ ")'>Endre</button></td><td><button class='btn btn-danger' onclick='slettEnBillett(" +i.billettNr+ ")'>Slett</button></td></tr>";
     }
     ut += "</table>";
@@ -91,7 +81,7 @@ function utskrift(ordre) {
 }
 
 function oppdaterBillett(billettNr) {
-    $.get("http://localhost:8080/hentBilletterFraDB?billettNr=" + billettNr, function (data) {
+    $.get("hentEnBillett?billettNr=" + billettNr, function (data) {
         $("#billettNr").html(billettNr);
         $("#endreVelgfilm").val(data.film);
         $("#endreAntall").val(data.antall);
@@ -101,28 +91,55 @@ function oppdaterBillett(billettNr) {
         $("#endreEpost").val(data.epost);
     });
     $("#endreInputs").css("display", "block");
+    $("#inputs").css("display", "none");
 }
 
 function slettEnBillett(billettNr) {
-    // Her er billettNr null
     $.ajax({
         url: "slettEnBillett?billettNr="+billettNr,
         type: "DELETE"
     });
-    setTimeout(() => {hent();}, 100);
+    setTimeout(() => {hent();}, 10);
 }
 
 function oppdaterBillettiDB() {
     const billett = {
-        "billettNr": document.getElementById("billettNr").innerHTML,
-        "film": document.getElementById("endreVelgfilm").value,
-        "antall": document.getElementById("endreAntall").value,
-        "fornavn": document.getElementById("endreFornavn").value,
-        "etternavn": document.getElementById("endreEtternavn").value,
-        "telefonnr": document.getElementById("endreTelefonnr").value,
-        "epost": document.getElementById("endreEpost").value
+        billettNr : $("#billettNr").html(),
+        film : $("#endreVelgfilm").val(),
+        antall : $("#endreAntall").val(),
+        fornavn : $("#endreFornavn").val(),
+        etternavn : $("#endreEtternavn").val(),
+        telefonnr : $("#endreTelefonnr").val(),
+        epost : $("#endreEpost").val()
     }
-    $.post("http://localhost:8080/oppdaterBillettiDB", billett, function (){
-        hent();
-    });
+
+    let feilmld = "";
+    if (billett.film === "") {
+        feilmld += "Velg film<br>";
+    }
+    if (billett.antall <= 0) {
+        feilmld += "Antall<br>";
+    }
+    if (!navnRegex.test(billett.fornavn)) {
+        feilmld += "Fornavn<br>";
+    }
+    if (!navnRegex.test(billett.etternavn)) {
+        feilmld += "Etternavn<br>";
+    }
+    if (!telefonnrRegex.test(billett.telefonnr)) {
+        feilmld += "Telefonnr<br>";
+    }
+    if (!epostRegex.test(billett.epost)) {
+        feilmld += "Epost<br>";
+    }
+
+    if (feilmld === "") {
+        $.post("/endreBillett", billett, function (){
+            hent();
+        });
+        $("#endreInputs").css("display", "none");
+        $("#inputs").css("display", "block");
+    } else {
+        $("#feilmldfelt").html("<h2>Feil vedrørende oppdatering av din ordre ved</h2><strong>" + feilmld);
+    }
 }

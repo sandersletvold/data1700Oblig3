@@ -1,7 +1,6 @@
 package oslomet.data1700.oblig3;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -30,17 +29,17 @@ public class BillettRepository {
         }
     }
 
-    public void lagreBillett(Billett billett) {
+    public void tilServer(Billett billett) {
         String sql = "INSERT INTO billett (film, antall, fornavn, etternavn, telefonnr, epost) VALUES(?,?,?,?,?,?);";
         db.update(sql, billett.getFilm(), billett.getAntall(), billett.getFornavn(), billett.getEtternavn(), billett.getTelefonnr(), billett.getEpost());
     }
 
-    public List<Billett> hentBilletter(){
+    public List<Billett> tilKlient(){
         List<Billett> alleBilletter = db.query("SELECT * FROM billett ORDER BY etternavn", new BillettRowMapper());
         return alleBilletter;
     }
 
-    public void slettBilletter() {
+    public void slettLagring() {
         String sql = "DELETE FROM billett;";
         db.update(sql);
     }
@@ -52,11 +51,11 @@ public class BillettRepository {
         });
     }
 
-    public Billett findById(Long billettNr) {
+    public Billett hentEnBillett(Long billettNr) {
         return db.queryForObject("SELECT * FROM billett WHERE billettNr = ?", new BillettRowMapper(), billettNr);
     }
 
-    public int oppdaterBillettiDB(Billett billett) {
+    public int endreEnBillett(Billett billett) {
         String sql = "UPDATE billett SET film = ?, antall =?, fornavn =?, etternavn =?, telefonnr =?, epost =? WHERE billettNr= ?";
         return db.update(sql, billett.getFilm(), billett.getAntall(), billett.getFornavn(), billett.getEtternavn(), billett.getTelefonnr(), billett.getEpost(), billett.getBillettNr());
     }

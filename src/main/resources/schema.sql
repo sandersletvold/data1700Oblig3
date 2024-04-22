@@ -5,7 +5,7 @@ CREATE TABLE billett
     antall SMALLINT,
     fornavn VARCHAR(20),
     etternavn VARCHAR(25),
-    telefonnr CHAR(8),
+    telefonnr VARCHAR(8),
     epost VARCHAR(35),
     PRIMARY KEY (billettNr)
 );
