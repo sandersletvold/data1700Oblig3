@@ -1,6 +1,7 @@
 # Oblig 3
 **OsloMet brukernavn:** sasle4901 \
 **GitHub brukernavn:** sandersletvold \
+**Youtube demo URL:** https://www.youtube.com/watch?v=alM9xlnJZ5A \
 **GitHub repo URL:** https://github.com/sandersletvold/data1700Oblig3 \
 **Fullt navn:** Sander Jarl Sletvold \
 **Kort beskrivelse av applikasjon:** \
