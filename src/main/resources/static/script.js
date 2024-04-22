@@ -14,7 +14,7 @@ function kjop() {
         fornavn : fornavn,
         etternavn : etternavn,
         telefonnr : telefonnr,
-        epost : epost,
+        epost : epost
     };
 
     /* Regler for validering */
@@ -82,7 +82,8 @@ function hent() {
 function utskrift(ordre) {
     let ut = "<table class='table'><tr><th class='active'>Film</th><th class='active'>Antall</th><th class='active'>Fornavn</th><th class='active'>Etternavn</th><th class='active'>Telefonnr</th><th class='active'>Epost</th><th class='active'>Endre</th><th class='active'>Slett</th></tr>";
     for (let i of ordre) {
-        ut += "<tr><td>" +i.film+ "</td><td>" +i.antall+ "</td><td>" +i.fornavn+ "</td><td>" + i.etternavn+ "</td><td>" +i.telefonnr+ "</td><td>" +i.epost+ "</td><td><button class='btn btn-primary' onclick='oppdaterBillett(" + i.billettNr + ")'>Endre</button></td><td><button class='btn btn-danger' onclick='slettEnBillett(" +i.billettNr+ ")'>Slett</button></td></tr>";
+        // Her er billettNr null
+        ut += "<tr><td>" +i.film+ "</td><td>" +i.antall+ "</td><td>" +i.fornavn+ "</td><td>" + i.etternavn+ "</td><td>" +i.telefonnr+ "</td><td>" +i.epost+ "</td><td><button class='btn btn-primary' onclick='oppdaterBillett(" +i.billettNr+ ")'>Endre</button></td><td><button class='btn btn-danger' onclick='slettEnBillett(" +i.billettNr+ ")'>Slett</button></td></tr>";
     }
     ut += "</table>";
     $("#billettfelt").html(ut);
@@ -103,24 +104,25 @@ function oppdaterBillett(billettNr) {
 }
 
 function slettEnBillett(billettNr) {
+    // Her er billettNr null
     $.ajax({
         url: "slettEnBillett?billettNr="+billettNr,
         type: "DELETE"
     });
-    hent();
+    setTimeout(() => {hent();}, 100);
 }
 
 function oppdaterBillettiDB() {
     const billett = {
-        billettNr : $("#billettNr").html(),
-        film : $("#endreVelgfilm").val(),
-        antall : $("#endreAntall").val(),
-        fornavn : $("#endreFornavn").val(),
-        etternavn : $("#endreEtternavn").val(),
-        telefonnr : $("#endreTelefonnr").val(),
-        epost : $("#endreEpost").val()
+        "billettNr": document.getElementById("billettNr").innerHTML,
+        "film": document.getElementById("endreVelgfilm").value,
+        "antall": document.getElementById("endreAntall").value,
+        "fornavn": document.getElementById("endreFornavn").value,
+        "etternavn": document.getElementById("endreEtternavn").value,
+        "telefon": document.getElementById("endreTelefonnr").value,
+        "epost": document.getElementById("endreEpost").value
     }
-    $.post("http://localhost:8080/oppdaterBillettiDB", billett, function (data){
-
+    $.post("http://localhost:8080/oppdaterBillettiDB", billett, function (){
+        hent();
     });
 }

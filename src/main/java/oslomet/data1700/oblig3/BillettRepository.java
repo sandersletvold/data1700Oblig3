@@ -24,7 +24,7 @@ public class BillettRepository {
             billett.setAntall(rs.getString("antall"));
             billett.setFornavn(rs.getString("fornavn"));
             billett.setEtternavn(rs.getString("etternavn"));
-            billett.setTelefonnr(rs.getString("telefon"));
+            billett.setTelefonnr(rs.getString("telefonnr"));
             billett.setEpost(rs.getString("epost"));
             return billett;
         }
@@ -35,9 +35,8 @@ public class BillettRepository {
         db.update(sql, billett.getFilm(), billett.getAntall(), billett.getFornavn(), billett.getEtternavn(), billett.getTelefonnr(), billett.getEpost());
     }
 
-    public List<Billett> hentBilletter() {
-        String sql = "SELECT * FROM billett ORDER BY etternavn ASC;";
-        List<Billett> alleBilletter = db.query(sql, new BeanPropertyRowMapper(Billett.class));
+    public List<Billett> hentBilletter(){
+        List<Billett> alleBilletter = db.query("SELECT * FROM billett ORDER BY etternavn", new BillettRowMapper());
         return alleBilletter;
     }
 
