@@ -9,3 +9,13 @@ CREATE TABLE billett
     epost VARCHAR(35),
     PRIMARY KEY (billettNr)
 );
+
+CREATE TABLE bruker
+(
+    id INTEGER AUTO_INCREMENT NOT NULL,
+    brukernavn VARCHAR(30) NOT NULL,
+    passord VARCHAR(30) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO bruker(brukernavn, passord) VALUES ('sasle4901', 'password');
