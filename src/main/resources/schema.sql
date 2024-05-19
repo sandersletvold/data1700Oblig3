@@ -17,5 +17,3 @@ CREATE TABLE bruker
     passord VARCHAR(30) NOT NULL,
     PRIMARY KEY (id)
 );
-
-INSERT INTO bruker(brukernavn, passord) VALUES ('sasle4901', 'password');

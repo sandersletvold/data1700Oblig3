@@ -36,16 +36,28 @@ public class BillettRepository {
     }
 
     public boolean sjekkNavnOgPassord (Kunde kunde) {
-        String sql = "SELECT * FROM bruker WHERE id=?";
+        String sql = "SELECT * FROM bruker WHERE brukernavn=?";
         try{
             Kunde dbKunde = db.queryForObject(sql,
-                    BeanPropertyRowMapper.newInstance(Kunde.class),new Object[]{kunde.getId()});
-            return sjekkPassord(dbKunde.getPassord(),kunde.getPassord());
+                    BeanPropertyRowMapper.newInstance(Kunde.class),new Object[]{kunde.getBrukernavn()});
+            if (sjekkPassord(dbKunde.getPassord(), kunde.getPassord())) {
+                return true;
+            } else {
+                return false;
+            }
         }
         catch(Exception e) {
             logger.error("Feil i sjekkNavnOgPassord : " + e);
             return false;
         }
+    }
+
+    private boolean sjekkPassord(String hashPassord, String passord){
+        BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
+        if (bCrypt.matches(passord, hashPassord)){
+            return true;
+        }
+        return false;
     }
 
     private String krypterPassord(String passord){
@@ -54,27 +66,15 @@ public class BillettRepository {
         return hashedPassord;
     }
 
-    private boolean sjekkPassord(String passord, String hashPassord){
-        BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
-        if(bCrypt.matches(passord,hashPassord)){
-            return true;
-        }
-        return false;
-    }
-
-    public boolean signUp(Kunde kunde) {
+    public void signUp(Kunde kunde) {
         String hash = krypterPassord(kunde.getPassord());
-        String sql = "INSERT INTO bruker (brukernavn,passord) VALUES(?,?)";
-        try{
-            db.update(sql,kunde.getBrukernavn(),kunde.getPassord(),hash);
-            return true;
-        }
-        catch(Exception e){
-            logger.error("Feil i lagreKunde : "+e);
-            return false;
+        String sql = "INSERT INTO bruker (brukernavn, passord) VALUES(?,?)";
+        try {
+            db.update(sql, kunde.getBrukernavn(), hash);
+        } catch (Exception e) {
+            logger.error("Feil ved å lagre ny kunde i database: " + e);
         }
     }
-
 
     public void tilServer(Billett billett) {
         String sql = "INSERT INTO billett (film, antall, fornavn, etternavn, telefonnr, epost) VALUES(?,?,?,?,?,?);";
@@ -105,19 +105,5 @@ public class BillettRepository {
     public int endreEnBillett(Billett billett) {
         String sql = "UPDATE billett SET film = ?, antall =?, fornavn =?, etternavn =?, telefonnr =?, epost =? WHERE billettNr= ?";
         return db.update(sql, billett.getFilm(), billett.getAntall(), billett.getFornavn(), billett.getEtternavn(), billett.getTelefonnr(), billett.getEpost(), billett.getBillettNr());
-    }
-
-    public boolean loggInn(Kunde kunde) {
-        String sql = "SELECT COUNT(*) FROM billett WHERE brukernavn = ? AND passord = ?";
-        try {
-            int funnetBruker = db.queryForObject(sql, Integer.class, kunde);
-            if (funnetBruker > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            return false;
-        }
     }
 }

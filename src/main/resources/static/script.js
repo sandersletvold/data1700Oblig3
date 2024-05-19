@@ -19,10 +19,10 @@ function signUp() {
         nyttBrukernavn : $("#nyttBrukernavn").val(),
         nyttPassord : $("#nyttPassord").val()
     };
-    console.log(nyKunde);
-    const url = "/signUp";
-    $.post(url, nyKunde, function () {
-        window.location.href = 'index.html';
-        console.log(nyKunde);
+    $.ajax({
+        url: "/signUp",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(nyKunde)
     });
 }

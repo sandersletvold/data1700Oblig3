@@ -1,10 +1,10 @@
 package oslomet.data1700.oblig3;
 
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -14,6 +14,8 @@ public class BillettController {
 
     @Autowired
     private HttpSession session;
+
+    private Logger logger = LoggerFactory.getLogger(BillettRepository.class);
 
     @PostMapping("/tilServer")
     public void tilServer(Billett billett) {
@@ -56,26 +58,26 @@ public class BillettController {
     }
 
     @GetMapping("/loggUt")
-    public void loggUt() {
+    public void signOut() {
         session.removeAttribute("loggetInn");
     }
 
     @PostMapping("/signUp")
-    public void signUp(Kunde kunde) {
+    public void signUp(@RequestBody Kunde kunde) {
         if (validerKunde(kunde)) {
             repository.signUp(kunde);
         }
     }
 
-    private boolean validerKunde(Kunde nyKunde){
-        String regexNavn = "/[a-zA-ZæøåÆØÅ-]{2,20}/";
-        String regexPassord = "(?=.[a-zA-ZæøåÆØÅ])(?=.)[a-zA-ZæøåÆØÅ]{8,}"; // minimum 8 tegn, en bokstav og et tall
-        boolean navnOK = nyKunde.getBrukernavn().matches(regexNavn);
-        boolean passordOK = nyKunde.getPassord().matches(regexPassord);
+    private boolean validerKunde(Kunde kunde){
+        String regexNavn = "^[a-zA-Z\\s]+";
+        String regexPassord = "(?=.*[a-zA-ZæøåÆØÅ])(?=.*\\d)[a-zA-ZæøåÆØÅ\\d]{8,}";
+        boolean navnOK = kunde.getBrukernavn().matches(regexNavn);
+        boolean passordOK = kunde.getPassord().matches(regexPassord);
         if (navnOK && passordOK){
+            logger.error("Validering vellykket");
             return true;
         } else {
-            System.out.println("Feil");
             return false;
         }
     }
