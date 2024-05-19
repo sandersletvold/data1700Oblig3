@@ -14,6 +14,6 @@ CREATE TABLE bruker
 (
     id INTEGER AUTO_INCREMENT NOT NULL,
     brukernavn VARCHAR(30) NOT NULL,
-    passord VARCHAR(30) NOT NULL,
+    passord VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );

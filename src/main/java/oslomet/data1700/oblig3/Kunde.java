@@ -13,7 +13,7 @@ public class Kunde {
     @JsonProperty("nyttBrukernavn")
     private String brukernavn;
 
-    @JsonProperty("nyttBrukernavn")
+    @JsonProperty("nyttPassord")
     private String passord;
 
     public Kunde(Integer id, String brukernavn, String passord) {

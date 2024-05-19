@@ -75,7 +75,6 @@ public class BillettController {
         boolean navnOK = kunde.getBrukernavn().matches(regexNavn);
         boolean passordOK = kunde.getPassord().matches(regexPassord);
         if (navnOK && passordOK){
-            logger.error("Validering vellykket");
             return true;
         } else {
             return false;

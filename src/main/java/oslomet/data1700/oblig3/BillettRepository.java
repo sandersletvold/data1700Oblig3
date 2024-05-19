@@ -47,7 +47,7 @@ public class BillettRepository {
             }
         }
         catch(Exception e) {
-            logger.error("Feil i sjekkNavnOgPassord : " + e);
+            logger.error("Feil i sjekkNavnOgPassord: " + e);
             return false;
         }
     }
