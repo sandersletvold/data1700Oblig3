@@ -1,12 +1,8 @@
 package oslomet.data1700.oblig3;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -17,8 +13,6 @@ import java.util.List;
 public class BillettRepository {
     @Autowired
     private JdbcTemplate db;
-
-    private Logger logger = LoggerFactory.getLogger(BillettRepository.class);
 
     class BillettRowMapper implements RowMapper< Billett > {
         @Override
@@ -32,47 +26,6 @@ public class BillettRepository {
             billett.setTelefonnr(rs.getString("telefonnr"));
             billett.setEpost(rs.getString("epost"));
             return billett;
-        }
-    }
-
-    public boolean sjekkNavnOgPassord (Kunde kunde) {
-        String sql = "SELECT * FROM bruker WHERE brukernavn=?";
-        try{
-            Kunde dbKunde = db.queryForObject(sql,
-                    BeanPropertyRowMapper.newInstance(Kunde.class),new Object[]{kunde.getBrukernavn()});
-            if (sjekkPassord(dbKunde.getPassord(), kunde.getPassord())) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        catch(Exception e) {
-            logger.error("Feil i sjekkNavnOgPassord: " + e);
-            return false;
-        }
-    }
-
-    private boolean sjekkPassord(String hashPassord, String passord){
-        BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
-        if (bCrypt.matches(passord, hashPassord)){
-            return true;
-        }
-        return false;
-    }
-
-    private String krypterPassord(String passord){
-        BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder(14);
-        String hashedPassord = bCrypt.encode(passord);
-        return hashedPassord;
-    }
-
-    public void signUp(Kunde kunde) {
-        String hash = krypterPassord(kunde.getPassord());
-        String sql = "INSERT INTO bruker (brukernavn, passord) VALUES(?,?)";
-        try {
-            db.update(sql, kunde.getBrukernavn(), hash);
-        } catch (Exception e) {
-            logger.error("Feil ved å lagre ny kunde i database: " + e);
         }
     }
 

@@ -9,11 +9,3 @@ CREATE TABLE billett
     epost VARCHAR(35),
     PRIMARY KEY (billettNr)
 );
-
-CREATE TABLE bruker
-(
-    id INTEGER AUTO_INCREMENT NOT NULL,
-    brukernavn VARCHAR(30) NOT NULL,
-    passord VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
-);

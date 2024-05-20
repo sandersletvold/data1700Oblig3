@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Kinobilletter</title>
     <script src="script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -11,29 +11,87 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-4" id="login">
-            <h1>Innlogging</h1>
+        <div class="col-md-3" id="inputs">
+            <h1>Bestilling av kinobilletter</h1>
             <form class="form">
                 <div class="form-group">
-                    <label for="brukernavn">Brukernavn</label>
-                    <input id="brukernavn" type="text" class="form-control">
+                    <label for="velgfilm">Velg film</label>
+                    <select id="velgfilm" class="form-control">
+                        <option id="default"></option>
+                        <option>Konvoi</option>
+                        <option>Snøsamfunnet</option>
+                        <option>The Wolf of Wall Street</option>
+                        <option>Bird Box</option>
+                        <option>Tinder svindleren</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="passord">Passord</label>
-                    <input id="passord" type="password" class="form-control">
-                </div>
-                <button class="btn btn-primary" onclick="loggInn()">Logg inn</button>
-                <div class="form-group">
-                    <label for="nyttBrukernavn">Brukernavn</label>
-                    <input id="nyttBrukernavn" type="text" class="form-control">
+                    <label for="antall">Antall</label>
+                    <input id="antall" type="number" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="nyttPassord">Passord</label>
-                    <input id="nyttPassord" type="password" class="form-control">
+                    <label for="fornavn">Fornavn</label>
+                    <input id="fornavn" type="text" class="form-control">
                 </div>
-                <button class="btn btn-primary" onclick="signUp()">Sign up</button>
-                <div id="feilInnlogging"></div>
+                <div class="form-group">
+                    <label for="etternavn">Etternavn</label>
+                    <input id="etternavn" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="telefonnr">Telefonnr</label>
+                    <input id="telefonnr" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="epost">Epost</label>
+                    <input id="epost" type="text" class="form-control">
+                </div>
             </form>
+            <button class="btn btn-primary" onclick="kjop()">Kjøp billett</button>
+        </div>
+        <div class="col-md-3" id="endreInputs" style="display: none">
+            <h1>Endre kinobilletter</h1>
+            <form class="form">
+                <p id="billettNr" style="display: none"></p>
+                <div class="form-group">
+                    <label for="endreVelgfilm">Velg film</label>
+                    <select id="endreVelgfilm" class="form-control">
+                        <option id="endreDefault"></option>
+                        <option>Konvoi</option>
+                        <option>Snøsamfunnet</option>
+                        <option>The Wolf of Wall Street</option>
+                        <option>Bird Box</option>
+                        <option>Tinder svindleren</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="endreAntall">Antall</label>
+                    <input id="endreAntall" type="number" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="endreFornavn">Fornavn</label>
+                    <input id="endreFornavn" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="endreEtternavn">Etternavn</label>
+                    <input id="endreEtternavn" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="endreTelefonnr">Telefonnr</label>
+                    <input id="endreTelefonnr" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="endreEpost">Epost</label>
+                    <input id="endreEpost" type="text" class="form-control">
+                </div>
+            </form>
+            <button class="btn btn-primary" onclick="oppdaterBillettiDB()">Oppdater</button>
+        </div>
+        <div class="col-md-9">
+            <div id="feilmldfelt"></div>
+            <h2>Alle billetter</h2>
+            <div id="billettfelt"></div>
+            <button class="btn btn-danger" onclick="slett()">Slett alle billettene</button>
+            <button class="btn btn-warning" onclick="loggUt">Logg ut</button>
         </div>
     </div>
 </div>
